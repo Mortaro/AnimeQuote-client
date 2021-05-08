@@ -6,7 +6,7 @@ import Card from "./components/Card.njs";
 class Home extends Nullstack {
   searchInput = "";
   quotes = [];
-  nextPage = "";
+
   prepare({ project, page }) {
     page.title = `Home`;
     page.description = `${project.name} foi feito com Nullstack ヽ(^◇^*)/`;
@@ -14,7 +14,6 @@ class Home extends Nullstack {
 
   async initiate() {
     let quotes = [];
-    this.nextPage = "";
     const quote = await this.randomQuote();
     quotes.push(quote);
     this.quotes = [...quotes];
@@ -35,9 +34,7 @@ class Home extends Nullstack {
   async getQuotes({ settings, data }) {
     try {
       const response = await fetch(
-        `${settings.apiHost}/quote?search=${this.searchInput}&page=${
-          data.firstPage || this.nextPage
-        }`,
+        `${settings.apiHost}/quote?search=${this.searchInput}`,
         {
           method: "GET",
         }
@@ -72,7 +69,6 @@ class Home extends Nullstack {
           />
           <span
             onclick={this.getQuotes}
-            data-first-page={1}
             class="text-center cursor-pointer text-white bg-purple-500 z-10 h-full leading-snug absolute rounded w-12 right-0 pt-3 hover:bg-purple-600"
           >
             <i class="fas fa-search fa-lg"></i>
@@ -88,14 +84,6 @@ class Home extends Nullstack {
             <Card quote={quote} />
           ))}
         </div>
-        {this.nextPage && (
-          <Button
-            onclick={this.getQuotes}
-            text="Ver mais"
-            styleClass="self-center bg-purple-500 text-white rounded hover:bg-purple-600 p-2"
-            keepQuotes={true}
-          />
-        )}
       </div>
     );
   }

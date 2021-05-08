@@ -1,6 +1,6 @@
-export default function Button({ text, onclick, styleClass, keepQuotes }) {
+export default function Button({ text, onclick, styleClass }) {
   return (
-    <button onclick={onclick} class={styleClass} data-keep-quotes={keepQuotes}>
+    <button onclick={onclick} class={styleClass}>
       {text}
     </button>
   );
