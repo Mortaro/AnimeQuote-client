@@ -18,7 +18,7 @@ class Home extends Nullstack {
   }
 
   static async randomQuote({ database }) {
-    return await database.collection('quotes').aggregate({ $sample: {size: 1} }).next()
+    return await database.collection('quotes').aggregate([{ $sample: {size: 1} }]).next()
   }
 
   static async characterQuotes({ database, name }) {
